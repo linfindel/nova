@@ -13,6 +13,11 @@
         ::-webkit-scrollbar {
             width: 0;
         }
+
+        @font-face {
+            font-family: "Google logo";
+            src: url("Product\ Sans\ Bold.ttf");
+        }
     </style>
 </head>
 <body class="body-font-noto">
@@ -46,6 +51,9 @@
                 <div class="row">
                     <button onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
                     <button onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
+                    <button id="travel" onclick="openInNew('google-travel')" class="material-symbols-rounded">travel</button>
+                    <button id="maps" onclick="openInNew('google-maps')" class="material-symbols-rounded">map</button>
+                    <button onclick="openInNew('google')" class="button-icon-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
                 </div>
             </div>
 
@@ -54,6 +62,7 @@
 
                 <div class="row">
                     <button onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>
+                    <button onclick="openInNew('google-images')" class="button-icon-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
                 </div>
             </div>
         </div>
