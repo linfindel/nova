@@ -10,14 +10,16 @@ const copyArticleButton = document.getElementById("copy-article");
 const openImageButton = document.getElementById("open-image");
 const travelButton = document.getElementById("travel");
 const mapsButton = document.getElementById("maps");
-const newsButton = document.getElementById("news")
+const newsButton = document.getElementById("news");
+const currencyButton = document.getElementById("currency");
+const translateButton = document.getElementById("translate");
 
 // Information
 var title;
 var description;
 var article;
 var pageURL;
-var imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
+var imageURL;
 
 // Analysis
 const placeKeywords = [
@@ -49,10 +51,153 @@ const newsKeywords = [
     "current",
     "politician",
     "president",
-    "prime minister"
+    "prime minister",
+    "celebrity"
 ];
 
+const currencyKeywords = [
+    "currency"
+]
+
+const languageCodes = {
+    "Afrikaans": "af",
+    "Albanian language": "sq",
+    "Amharic": "am",
+    "Arabic": "ar",
+    "Armenian language": "hy",
+    "Assamese language": "as",
+    "Aymara language": "ay",
+    "Azerbaijani language": "az",
+    "Bambara language": "bm",
+    "Basque language": "eu",
+    "Belarusian language": "be",
+    "Bengali language": "bn",
+    "Bhojpuri language": "bho",
+    "Bosnian language": "bs",
+    "Bulgarian language": "bg",
+    "Catalan language": "ca",
+    "Cebuano language": "ceb",
+    "Chewa language": "ny",
+    "Simplified Chinese characters": "zh-CN",
+    "Traditional Chinese characters": "zh-TW",
+    "Corsican language": "co",
+    "Croatian language": "hr",
+    "Czech language": "cs",
+    "Danish language": "da",
+    "Maldivian language": "dv",
+    "Dogri language": "doi",
+    "Dutch language": "nl",
+    "English language": "en",
+    "Esperanto": "eo",
+    "Estonian language": "et",
+    "Ewe language": "ee",
+    "Filipino language": "tl",
+    "Finnish language": "fi",
+    "French language": "fr",
+    "Frisian languages": "fy",
+    "Galician language": "gl",
+    "Georgian language": "ka",
+    "German language": "de",
+    "Greek language": "el",
+    "Guarani language": "gn",
+    "Gujarati language": "gu",
+    "Haitian Creole": "ht",
+    "Hausa language": "ha",
+    "Hawaiian language": "haw",
+    "Hebrew language": "iw",
+    "Hindi": "hi",
+    "Hmong language": "hmn",
+    "Hungarian language": "hu",
+    "Icelandic language": "is",
+    "Igbo language": "ig",
+    "Ilocano language": "ilo",
+    "Indonesian language": "id",
+    "Irish language": "ga",
+    "Italian language": "it",
+    "Japanese language": "ja",
+    "Javanese language": "jw",
+    "Kannada": "kn",
+    "Kazakh language": "kk",
+    "Khmer language": "km",
+    "Kinyarwanda": "rw",
+    "Konkani language": "gom",
+    "Korean language": "ko",
+    "Krio language": "kri",
+    "Kurmanji": "ku",
+    "Sorani": "ckb",
+    "Kyrgyz language": "ky",
+    "Lao language": "lo",
+    "Latin": "la",
+    "Latvian language": "lv",
+    "Lingala": "ln",
+    "Lithuanian language": "lt",
+    "Luganda": "lg",
+    "Luxembourgish": "lb",
+    "Macedonian language": "mk",
+    "Maithili language": "mai",
+    "Malagasy language": "mg",
+    "Malay language": "ms",
+    "Malayalam": "ml",
+    "Maltese language": "mt",
+    "Māori language": "mi",
+    "Marathi language": "mr",
+    "Meitei language": "mni",
+    "Mizo language": "lus",
+    "Mongolian language": "mn",
+    "Burmese language": "my",
+    "Nepali language": "ne",
+    "Norwegian language": "no",
+    "Odia language": "or",
+    "Oromo language": "om",
+    "Pashto": "ps",
+    "Persian language": "fa",
+    "Polish language": "pl",
+    "Portuguese language": "pt",
+    "Pubjabi language": "pa",
+    "Quechuan languages": "qu",
+    "Romanian language": "ro",
+    "Russian language": "ru",
+    "Samoan language": "sm",
+    "Sanskrit": "sa",
+    "Scottish Gaelic": "gd",
+    "Northern Sotho language": "nso",
+    "Serbian language": "sr",
+    "Sotho language": "st",
+    "Shona language": "sn",
+    "Sindhi language": "sd",
+    "Sinhala language": "si",
+    "Slovak language": "sk",
+    "Slovenian language": "sl",
+    "Somali language": "so",
+    "Spanish language": "es",
+    "Sundanese language": "su",
+    "Swahili language": "sw",
+    "Swedish language": "sv",
+    "Tajik language": "tg",
+    "Tamil language": "ta",
+    "Tatar language": "tt",
+    "Telugu language": "te",
+    "Thai language": "th",
+    "Tigrinya language": "ti",
+    "Tsonga language": "ts",
+    "Turkish language": "tr",
+    "Turkmen language": "tk",
+    "Twi": "ak",
+    "Ukrainian language": "uk",
+    "Urdu": "ur",
+    "Uyghur language": "ug",
+    "Uzbek language": "uz",
+    "Vietnamese language": "vi",
+    "Welsh language": "cy",
+    "Xhosa language": "xh",
+    "Yiddish": "yi",
+    "Yoruba language": "yo",
+    "Zulu language": "zu"
+}
+
 function search() {
+    imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
+
     var searchTerm = searchBox.value;
     searchTerm = searchTerm.replace(/(\?|\ba\b|\ban\b|\bwhat is\b|\bwhat are\b|\bwho is\b|\bwho was\b|\bwhere is\b|\bwhere was\b|\bthe\b)/gi, "").trim()
 
@@ -129,6 +274,42 @@ function search() {
                 newsButton.style.display = "none";
             }
 
+            // Check for currency
+            keywordFound = false;
+
+            for (const word of wordsInDescription) {
+                if (currencyKeywords.includes(word)) {
+                    keywordFound = true;
+                    break;
+                }
+            }
+
+            if (keywordFound) {
+                currencyButton.style.display = "flex";
+            }
+
+            else {
+                currencyButton.style.display = "none";
+            }
+
+            // Check for language
+            keywordFound = false;
+
+            for (const word of wordsInDescription) {
+                if (word.includes("language")) {
+                    keywordFound = true;
+                    break;
+                }
+            }
+
+            if (keywordFound) {
+                translateButton.style.display = "flex";
+            }
+
+            else {
+                translateButton.style.display = "none";
+            }
+
             landingSection.style.transform = "translateY(100vh)";
             contentSection.style.transform = "translateY(-40vh)";
         })
@@ -182,19 +363,27 @@ function openInNew(content) {
     }
 
     else if (content == "google-images") {
-        open(`https://www.google.com/search?tbm=isch&q=${title}`, "_blank")
+        open(`https://www.google.com/search?tbm=isch&q=${title}`, "_blank");
     }
 
     else if (content == "google-maps") {
-        open(`https://www.google.com/maps?q=${title}`, "_blank")
+        open(`https://www.google.com/maps?q=${title}`, "_blank");
     }
 
     else if (content == "google-travel") {
-        open(`https://www.google.com/flights?q=${title}`, "_blank")
+        open(`https://www.google.com/flights?q=${title}`, "_blank");
     }
 
     else if (content == "google-news") {
-        open(`https://www.google.com/news?q=${title}`, "_blank")
+        open(`https://www.google.com/news?q=${title}`, "_blank");
+    }
+
+    else if (content == "google-finance") {
+        open(`https://www.google.com/finance?q=${title}`, "_blank");
+    }
+
+    else if (content == "google-translate") {
+        open(`https://translate.google.com/?sl=auto&tl=${languageCodes[title]}&op=translate`, "_blank");
     }
 }
 
