@@ -296,7 +296,7 @@ function search() {
             keywordFound = false;
 
             for (const word of wordsInDescription) {
-                if (word.includes("language")) {
+                if (word.includes("language") && !description.includes("programming")) {
                     keywordFound = true;
                     break;
                 }
