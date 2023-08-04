@@ -13,6 +13,7 @@ const mapsButton = document.getElementById("maps");
 const newsButton = document.getElementById("news");
 const currencyButton = document.getElementById("currency");
 const translateButton = document.getElementById("translate");
+const stocksButton = document.getElementById("stocks");
 
 // Information
 var title;
@@ -296,7 +297,7 @@ function search() {
             keywordFound = false;
 
             for (const word of wordsInDescription) {
-                if (word.includes("language") && !description.includes("programming")) {
+                if (word.includes("language") && !description.toLowerCase().includes("programming") && !description.toLowerCase().includes("style sheet")) {
                     keywordFound = true;
                     break;
                 }
@@ -308,6 +309,24 @@ function search() {
 
             else {
                 translateButton.style.display = "none";
+            }
+
+            // Check for company
+            keywordFound = false;
+
+            for (const word of wordsInDescription) {
+                if (word.includes("company") || word.includes("corporation")) {
+                    keywordFound = true;
+                    break;
+                }
+            }
+
+            if (keywordFound) {
+                stocksButton.style.display = "flex";
+            }
+
+            else {
+                stocksButton.style.display = "none";
             }
 
             landingSection.style.transform = "translateY(100vh)";
