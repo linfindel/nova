@@ -297,7 +297,7 @@ function search() {
             keywordFound = false;
 
             for (const word of wordsInDescription) {
-                if (word.includes("language") && !description.toLowerCase().includes("programming") && !description.toLowerCase().includes("style sheet")) {
+                if (word.includes("language") && !description.toLowerCase().includes("programming") && !description.toLowerCase().includes("style sheet") && !description.toLowerCase().includes("markup")) {
                     keywordFound = true;
                     break;
                 }
