@@ -10,12 +10,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
 
     <style>
-        ::-webkit-scrollbar-thumb {
-            background-color: transparent;
-        }
-
         ::-webkit-scrollbar {
-            width: 1px;
+            width: 0;
         }
     </style>
 </head>
@@ -54,7 +50,7 @@
             </div>
 
             <div class="column" style="flex: 1;">
-                <div id="image" class="card-subtle" style="background-size: cover; background-position: center; background-repeat: no-repeat; height: 50vh; width: 35rem;"></div>
+                <div id="image" class="card-subtle" style="background-size: cover; background-position: center; background-repeat: no-repeat; height: 50vh; width: 35rem; transition: none;"></div>
 
                 <div class="row">
                     <button onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>

@@ -12,6 +12,7 @@ var title;
 var description;
 var article;
 var pageURL;
+var imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 
 function search() {
     var searchTerm = searchBox.value;
@@ -29,7 +30,7 @@ function search() {
             pageURL = data.content_urls.desktop.page;
 
             if (data.originalimage && data.originalimage.source) {
-                var imageURL = data.originalimage.source;
+                imageURL = data.originalimage.source;
             }
 
             titleSection.innerText = title;
@@ -66,22 +67,24 @@ function search() {
 }
 
 function copy() {
-    try {
-        navigator.clipboard.writeText = articleSection.innerText;
-        copyArticleButton.classList.add("button-icon-success");
+    navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
+        if (result.state === "granted" || result.state === "prompt") {
+            navigator.clipboard.writeText(articleSection.innerText);
+            copyArticleButton.classList.add("button-icon-success");
+    
+            setTimeout(() => {
+                copyArticleButton.classList.remove("button-icon-success");
+            }, 1000);
+        }
 
-        setTimeout(() => {
-            copyArticleButton.classList.remove("button-icon-success");
-        }, 1000);
-    }
+        else {
+            copyArticleButton.classList.add("button-icon-error");
 
-    catch {
-        copyArticleButton.classList.add("button-icon-error");
-
-        setTimeout(() => {
-            copyArticleButton.classList.remove("button-icon-error");
-        }, 1000);
-    }
+            setTimeout(() => {
+                copyArticleButton.classList.remove("button-icon-error");
+            }, 1000);
+        }
+    });
 }
 
 function openInNew(content) {
