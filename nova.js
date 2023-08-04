@@ -199,6 +199,7 @@ const languageCodes = {
 const spaceKeywords = [
     "planet",
     "moon",
+    "natural satellite",
     "nebula",
     "supernova",
     "star",
