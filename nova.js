@@ -196,6 +196,19 @@ const languageCodes = {
     "Zulu language": "zu"
 }
 
+const spaceKeywords = [
+    "planet",
+    "moon",
+    "nebula",
+    "supernova",
+    "star",
+    "asteroid",
+    "comet",
+    "galaxy",
+    "black hole"
+
+]
+
 function search() {
     imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 
@@ -327,6 +340,26 @@ function search() {
 
             else {
                 stocksButton.style.display = "none";
+            }
+
+            // Check for space
+            keywordFound = false;
+
+            for (const word of wordsInDescription) {
+                if (spaceKeywords.includes(word)) {
+                    keywordFound = true;
+                    break;
+                }
+            }
+
+            if (keywordFound) {
+                imageSection.style.backgroundSize = "contain";
+                imageSection.className = "";
+            }
+
+            else {
+                imageSection.style.backgroundSize = "cover";
+                imageSection.className = "card-subtle";
             }
 
             landingSection.style.transform = "translateY(100vh)";
