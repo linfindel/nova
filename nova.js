@@ -10,6 +10,7 @@ const copyArticleButton = document.getElementById("copy-article");
 const openImageButton = document.getElementById("open-image");
 const travelButton = document.getElementById("travel");
 const mapsButton = document.getElementById("maps");
+const newsButton = document.getElementById("news")
 
 // Information
 var title;
@@ -40,6 +41,15 @@ const placeKeywords = [
     "island",
     "cave",
     "canyon"
+];
+
+const newsKeywords = [
+    "ongoing",
+    "since",
+    "current",
+    "politician",
+    "president",
+    "prime minister"
 ];
 
 function search() {
@@ -95,6 +105,28 @@ function search() {
             else {
                 mapsButton.style.display = "none";
                 travelButton.style.display = "none";
+            }
+
+            // Check for news
+            keywordFound = false;
+
+            for (const word of wordsInDescription) {
+                if (newsKeywords.includes(word)) {
+                    keywordFound = true;
+                    break;
+                }
+            }
+
+            if (containsYearMoreThanTenYearsAgo(description)) {
+                keywordFound = false;
+            }
+
+            if (keywordFound) {
+                newsButton.style.display = "flex";
+            }
+
+            else {
+                newsButton.style.display = "none";
             }
 
             landingSection.style.transform = "translateY(100vh)";
@@ -160,4 +192,32 @@ function openInNew(content) {
     else if (content == "google-travel") {
         open(`https://www.google.com/flights?q=${title}`, "_blank")
     }
+
+    else if (content == "google-news") {
+        open(`https://www.google.com/news?q=${title}`, "_blank")
+    }
+}
+
+function containsYearMoreThanTenYearsAgo(description) {
+    const currentYear = new Date().getFullYear();
+    const yearRegex = /\b\d{4}\b/g;
+    const years = description.match(yearRegex);
+
+    if (!years) {
+        return false; // No years found in the description
+    }
+
+    for (let i = 0; i < years.length; i++) {
+        const yearStr = years[i];
+        const year = parseInt(yearStr, 10);
+        if (!isNaN(year) && (currentYear - year) > 10) {
+            // Check if the word "born" precedes the year
+            const index = description.indexOf(yearStr);
+            if (index >= 5 && description.slice(index - 5, index).toLowerCase() === "born ") {
+                return false; // The year is more than 10 years ago and is preceded by "born"
+            }
+        }
+    }
+
+    return true; // All years found are either recent or not preceded by "born"
 }
