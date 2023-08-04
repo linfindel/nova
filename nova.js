@@ -26,6 +26,8 @@ var imageURL;
 const placeKeywords = [
     "village",
     "city",
+    "capital city",
+    "capital of",
     "town",
     "human settlement",
     "attraction",
