@@ -28,6 +28,7 @@ const placeKeywords = [
     "city",
     "capital city",
     "capital of",
+    "capital",
     "town",
     "human settlement",
     "attraction",
