@@ -459,8 +459,6 @@ function containsYearMoreThanTenYearsAgo(description) {
         return false; // No years found in the description
     }
 
-    console.log(years);
-
     for (let i = 0; i < years.length; i++) {
         const yearStr = years[i];
         const year = parseInt(yearStr, 10);
@@ -469,7 +467,7 @@ function containsYearMoreThanTenYearsAgo(description) {
             const index = description.indexOf(yearStr);
 
             if (index >= 5 && /\bborn\b/i.test(description.slice(index - 5, index))) {
-                return true; // The year is more than 10 years ago and is preceded by "born"
+                return false; // The year is more than 10 years ago and is preceded by "born"
             }
         }
     }
