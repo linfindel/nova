@@ -230,6 +230,14 @@ function search() {
             article = data.extract;
             pageURL = data.content_urls.desktop.page;
 
+            const maxAnswerLength = 950; // Maximum length of the answer text
+            article = data.extract.slice(0, maxAnswerLength);
+
+            if (article.length < data.extract.length) {
+                article = article.trim();
+                article += "... ";
+            }
+
             if (data.originalimage && data.originalimage.source) {
                 imageURL = data.originalimage.source;
             }
