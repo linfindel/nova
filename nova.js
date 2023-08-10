@@ -1,4 +1,4 @@
-// Document
+// Document - Selecting HTML elements by their IDs
 const landingSection = document.getElementById("landing");
 const contentSection = document.getElementById("content");
 const titleSection = document.getElementById("title");
@@ -15,7 +15,7 @@ const currencyButton = document.getElementById("currency");
 const translateButton = document.getElementById("translate");
 const stocksButton = document.getElementById("stocks");
 
-// Information
+// Information - Storing data related to the search results
 var title;
 var description;
 var article;
@@ -23,7 +23,7 @@ var pageURL;
 var imageURL;
 var wikidataQID;
 
-// Analysis
+// Analysis - Keywords and language codes for various types of content
 const placeKeywords = [
     "village",
     "city",
@@ -213,6 +213,7 @@ const spaceKeywords = [
     "black hole"
 ];
 
+// Function to perform the search
 function search() {
     imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 
@@ -258,40 +259,25 @@ function search() {
                 openImageButton.style.display = "none";
             }
 
-
             isHuman(wikidataQID).then(result => {
                 if (result) {
                     console.log(`${wikidataQID} is an instance of human.`);
 
-                    imageSection.style.backgroundSize = "contain";
-                    imageSection.className = "";
+                    let imageIsPortrait = data.originalimage.width < data.originalimage.height;
+
+                    if (imageIsPortrait) {
+                        imageSection.style.backgroundSize = "contain";
+                        imageSection.className = "";
+                    }
                 }
                 
                 else {
                     console.log(`${wikidataQID} is not an instance of human.`);
                     
-                    imageSection.style.backgroundSize = "cover";
-                    imageSection.className = "card-subtle";
-                }
-
-                // Check for space
-                keywordFound = false;
-
-                for (const word of wordsInDescription) {
-                    if (spaceKeywords.includes(word)) {
-                        keywordFound = true;
-                        break;
+                    if (!spaceStyleSet) {
+                        imageSection.style.backgroundSize = "cover";
+                        imageSection.className = "card-subtle";
                     }
-                }
-
-                if (keywordFound) {
-                    imageSection.style.backgroundSize = "contain";
-                    imageSection.className = "";
-                }
-
-                else {
-                    imageSection.style.backgroundSize = "cover";
-                    imageSection.className = "card-subtle";
                 }
             });
 
@@ -392,6 +378,30 @@ function search() {
                 stocksButton.style.display = "none";
             }
 
+            // Check for space
+            keywordFound = false;
+
+            for (const word of wordsInDescription) {
+                if (spaceKeywords.includes(word)) {
+                    keywordFound = true;
+                    break;
+                }
+            }
+
+            if (keywordFound) {
+                imageSection.style.backgroundSize = "contain";
+                imageSection.className = "";
+
+                var spaceStyleSet = true;
+            }
+
+            else {
+                imageSection.style.backgroundSize = "cover";
+                imageSection.className = "card-subtle";
+                
+                var spaceStyleSet = false;
+            }
+
             landingSection.style.transform = "translateY(100vh)";
             contentSection.style.transform = "translateY(-40vh)";
         })
@@ -410,6 +420,7 @@ function search() {
     }
 }
 
+// Function to copy article content to clipboard
 function copy() {
     navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
         if (result.state === "granted" || result.state === "prompt") {
@@ -431,6 +442,7 @@ function copy() {
     });
 }
 
+// Function to open links in new tabs
 function openInNew(content) {
     if (content == "article") {
         open(pageURL, "_blank");
@@ -469,6 +481,7 @@ function openInNew(content) {
     }
 }
 
+// Function to check if a description contains a year more than ten years ago
 function containsYearMoreThanTenYearsAgo(description) {
     const currentYear = new Date().getFullYear();
     const yearRegex = /\b\d{4}\b/g;
@@ -494,55 +507,30 @@ function containsYearMoreThanTenYearsAgo(description) {
     return false; // All years found are either recent or are preceded by "born"
 }
 
-async function isHuman(QID) {
-    const apiUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${QID}&props=claims`;
-  
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        
-        if (data.entities && data.entities[QID] && data.entities[QID].claims) {
-        const claims = data.entities[QID].claims;
-        
-        if (claims.P31) {
-            for (const claim of claims.P31) {
-            if (claim.mainsnak.datavalue.value.id === 'Q5') {
-                return true; // Q5 corresponds to human
-            }
-            }
-        }
-        }
-        
-        return false;
-    } catch (error) {
-        console.error("Error:", error);
-        return false;
-    }
-}
-
+// Function to check if an entity is human using Wikidata API
 function isHuman(QID) {
     const apiUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${QID}&props=claims&callback=processResponse`;
     
     return new Promise((resolve, reject) => {
-      window.processResponse = function(data) {
+        window.processResponse = function(data) {
         if (data.entities && data.entities[QID] && data.entities[QID].claims) {
-          const claims = data.entities[QID].claims;
+            const claims = data.entities[QID].claims;
           
-          if (claims.P31) {
-            for (const claim of claims.P31) {
-              if (claim.mainsnak.datavalue.value.id === 'Q5') {
-                resolve(true); // Q5 corresponds to human
-                return;
-              }
+            if (claims.P31) {
+                for (const claim of claims.P31) {
+                    if (claim.mainsnak.datavalue.value.id === 'Q5') {
+                        resolve(true); // Q5 corresponds to human
+                        return;
+                    }
+                }
             }
-          }
         }
         
         resolve(false);
-      };
+        };
       
-      const script = document.createElement('script');
-      script.src = apiUrl;
-      document.body.appendChild(script);
+        const script = document.createElement('script');
+        script.src = apiUrl;
+        document.body.appendChild(script);
     });
-  }
+}

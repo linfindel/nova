@@ -49,7 +49,6 @@
                     </div>
                 </div>
 
-
                 <div class="row">
                     <button onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
                     <button onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
@@ -64,7 +63,7 @@
             </div>
 
             <div class="column" style="flex: 1;">
-                <div id="image" class="card-subtle" style="background-size: cover; background-position: center; background-repeat: no-repeat; height: 50vh; width: 35rem; transition: none; border-radius: 24px; padding: 2.5rem;"></div>
+                <div id="image" class="card-subtle" style="background-size: contain; background-position: center; background-repeat: no-repeat; height: 50vh; width: 35rem; transition: none; border-radius: 24px; padding: 2.5rem;"></div>
 
                 <div class="row">
                     <button onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>
@@ -80,5 +79,7 @@
     </div>
 
     <script src="nova.js"></script>
+
+    <h1 style="transform: translateY(50vh);">Scroll up for search</h1>
 </body>
 </html>
