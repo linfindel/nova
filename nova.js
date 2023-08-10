@@ -21,6 +21,7 @@ var description;
 var article;
 var pageURL;
 var imageURL;
+var wikidataQID;
 
 // Analysis
 const placeKeywords = [
@@ -228,6 +229,7 @@ function search() {
             description = data.description;
             article = data.extract;
             pageURL = data.content_urls.desktop.page;
+            wikidataQID = data.wikibase_item;
 
             const maxAnswerLength = 950; // Maximum length of the answer text
             article = data.extract.slice(0, maxAnswerLength);
@@ -255,6 +257,43 @@ function search() {
                 imageSection.style.display = "none";
                 openImageButton.style.display = "none";
             }
+
+
+            isHuman(wikidataQID).then(result => {
+                if (result) {
+                    console.log(`${wikidataQID} is an instance of human.`);
+
+                    imageSection.style.backgroundSize = "contain";
+                    imageSection.className = "";
+                }
+                
+                else {
+                    console.log(`${wikidataQID} is not an instance of human.`);
+                    
+                    imageSection.style.backgroundSize = "cover";
+                    imageSection.className = "card-subtle";
+                }
+
+                // Check for space
+                keywordFound = false;
+
+                for (const word of wordsInDescription) {
+                    if (spaceKeywords.includes(word)) {
+                        keywordFound = true;
+                        break;
+                    }
+                }
+
+                if (keywordFound) {
+                    imageSection.style.backgroundSize = "contain";
+                    imageSection.className = "";
+                }
+
+                else {
+                    imageSection.style.backgroundSize = "cover";
+                    imageSection.className = "card-subtle";
+                }
+            });
 
             // Check for place
             var wordsInDescription = description.toLowerCase().split(/\s+/);
@@ -351,26 +390,6 @@ function search() {
 
             else {
                 stocksButton.style.display = "none";
-            }
-
-            // Check for space
-            keywordFound = false;
-
-            for (const word of wordsInDescription) {
-                if (spaceKeywords.includes(word)) {
-                    keywordFound = true;
-                    break;
-                }
-            }
-
-            if (keywordFound) {
-                imageSection.style.backgroundSize = "contain";
-                imageSection.className = "";
-            }
-
-            else {
-                imageSection.style.backgroundSize = "cover";
-                imageSection.className = "card-subtle";
             }
 
             landingSection.style.transform = "translateY(100vh)";
@@ -474,3 +493,56 @@ function containsYearMoreThanTenYearsAgo(description) {
 
     return false; // All years found are either recent or are preceded by "born"
 }
+
+async function isHuman(QID) {
+    const apiUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${QID}&props=claims`;
+  
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        if (data.entities && data.entities[QID] && data.entities[QID].claims) {
+        const claims = data.entities[QID].claims;
+        
+        if (claims.P31) {
+            for (const claim of claims.P31) {
+            if (claim.mainsnak.datavalue.value.id === 'Q5') {
+                return true; // Q5 corresponds to human
+            }
+            }
+        }
+        }
+        
+        return false;
+    } catch (error) {
+        console.error("Error:", error);
+        return false;
+    }
+}
+
+function isHuman(QID) {
+    const apiUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${QID}&props=claims&callback=processResponse`;
+    
+    return new Promise((resolve, reject) => {
+      window.processResponse = function(data) {
+        if (data.entities && data.entities[QID] && data.entities[QID].claims) {
+          const claims = data.entities[QID].claims;
+          
+          if (claims.P31) {
+            for (const claim of claims.P31) {
+              if (claim.mainsnak.datavalue.value.id === 'Q5') {
+                resolve(true); // Q5 corresponds to human
+                return;
+              }
+            }
+          }
+        }
+        
+        resolve(false);
+      };
+      
+      const script = document.createElement('script');
+      script.src = apiUrl;
+      document.body.appendChild(script);
+    });
+  }
