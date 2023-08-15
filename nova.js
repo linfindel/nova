@@ -1,6 +1,4 @@
 // Document - Selecting HTML elements by their IDs
-const landingSection = document.getElementById("landing");
-const contentSection = document.getElementById("content");
 const titleSection = document.getElementById("title");
 const descriptionSection = document.getElementById("description");
 const articleSection = document.getElementById("article");
@@ -14,6 +12,16 @@ const newsButton = document.getElementById("news");
 const currencyButton = document.getElementById("currency");
 const translateButton = document.getElementById("translate");
 const stocksButton = document.getElementById("stocks");
+
+const leftButtons = document.getElementById("left-buttons");
+const rightButtons = document.getElementById("right-buttons");
+
+const leftDivider = document.getElementById("left-divider");
+const rightDivider = document.getElementById("right-divider");
+
+const searchContainer = document.getElementById("search-container");
+
+const buttonToolbar = document.getElementById("toolbar");
 
 // Information - Storing data related to the search results
 var title;
@@ -224,6 +232,8 @@ function search() {
         fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchTerm)}`)
         .then(response => response.json())
         .then(data => {
+            buttonToolbar.style.border = "1px solid rgb(100, 100, 100)";
+
             console.log(data);
 
             title = data.title;
@@ -232,15 +242,13 @@ function search() {
             pageURL = data.content_urls.desktop.page;
             wikidataQID = data.wikibase_item;
 
-            const maxAnswerLength = 800; // Maximum length of the answer text
+            const maxAnswerLength = 850; // Maximum length of the answer text
             article = data.extract.slice(0, maxAnswerLength);
 
             if (article.length < data.extract.length) {
                 article = article.trim();
                 article += "... ";
             }
-
-            article += "<br><br><i>From Wikipedia</i>"
 
             if (data.originalimage && data.originalimage.source) {
                 imageURL = data.originalimage.source;
@@ -284,7 +292,9 @@ function search() {
             });
 
             // Check for place
-            var wordsInDescription = description.toLowerCase().split(/\s+/);
+            var descriptionNoHyphens = description.replace("-", " ");
+
+            var wordsInDescription = descriptionNoHyphens.toLowerCase().split(/\s+/);
             let keywordFound = false;
 
             for (const word of wordsInDescription) {
@@ -404,22 +414,19 @@ function search() {
                 var spaceStyleSet = false;
             }
 
-            landingSection.style.transform = "translateY(100vh)";
-            contentSection.style.transform = "translateY(-40vh)";
+            leftButtons.style.display = "flex";
+            rightButtons.style.display = "flex";
+            leftDivider.style.display = "flex";
+            rightDivider.style.display = "flex";
         })
         .catch(error => {
-            document.getElementById("search-container").className = "search-box-error";
+            searchContainer.className = "search-box-error";
 
             setTimeout(() => {
-                document.getElementById("search-container").className = "search-box";
+                searchContainer.className = "search-box";
             }, 1000);
         });
-    }
-
-    else {
-        landingSection.style.transform = "translateY(20vh)";
-        contentSection.style.transform = "translateY(100vh)";
-    }
+    };
 }
 
 // Function to copy article content to clipboard

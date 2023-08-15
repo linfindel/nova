@@ -12,10 +12,6 @@
     <link rel="preload" href="Product Sans Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
     <style>
-        ::-webkit-scrollbar {
-            width: 0;
-        }
-
         @font-face {
             font-family: "Google logo";
             src: url("Product\ Sans\ Bold.ttf");
@@ -27,60 +23,83 @@
         <h1>Nova</h1>
     </div>
 
-    <div id="landing" class="column" style="transform: translateY(20vh);">
-        <div class="logo-nova"></div>
-
-        <div class="text-center">
-            <h1>Nova</h1>
-            <p>Your partner for the web</p>
-        </div>
-    </div>
-
-    <div style="transform: translateY(110vh);" id="content">
+    <div id="content" style="margin-top: -1rem;">
         <div class="row">
             <div style="flex: 1;" class="column">
                 <div style="align-items: center; display: flex; flex-direction: column; justify-content: center; height: 50vh;" class="card-subtle">
                     <div class="column">
                         <div class="text-center">
                             <h1 id="title"></h1>
-                            <p id="description" style="text-transform: uppercase; color: rgb(100, 100, 100); font-size: 0.75rem;">Loading...</p>
+                            <p id="description" style="text-transform: uppercase; color: rgb(100, 100, 100); font-size: 0.75rem;"></p>
                         </div>
                         <p id="article"></p>
                     </div>
-                </div>
-
-                <div class="row">
-                    <button onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
-                    <button onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
-                    <button id="travel" onclick="openInNew('google-travel')" class="material-symbols-rounded">travel</button>
-                    <button id="maps" onclick="openInNew('google-maps')" class="material-symbols-rounded">map</button>
-                    <button id="news" onclick="openInNew('google-news')" class="material-symbols-rounded">newspaper</button>
-                    <button id="currency" onclick="openInNew('google-finance')" class="material-symbols-rounded">currency_exchange</button>
-                    <button id="translate" onclick="openInNew('google-translate')" class="material-symbols-rounded">translate</button>
-                    <button id="stocks" onclick="openInNew('google-finance')" class="material-symbols-rounded">finance</button>
-                    <button onclick="openInNew('google')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
                 </div>
             </div>
 
             <div class="column" style="flex: 1;">
                 <div id="image" class="card-subtle" style="background-size: contain; background-position: center; background-repeat: no-repeat; height: 50vh; width: 35rem; transition: none; border-radius: 24px; padding: 2.5rem;"></div>
-
-                <div class="row">
-                    <button onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>
-                    <button onclick="openInNew('google-images')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
-                </div>
             </div>
         </div>
     </div>
 
-    <div id="search-container" class="search-box" style="position: absolute; bottom: 0; margin-bottom: 1.4rem;">
-        <span class="material-symbols-rounded">search</span>
-        <input onchange="search()" id="search" tabindex="99" type="text" class="input-search" placeholder="Search for anything" autocomplete="off">
+    <div id="toolbar" style="
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 1.25rem;
+    justify-content: center;
+
+    border-radius: 24px;
+
+    padding: 1rem;
+
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1.4rem;
+    ">
+        <div id="left-buttons" style="display: none;" class="row">
+            <button onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
+            <button onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
+            <button id="travel" onclick="openInNew('google-travel')" class="material-symbols-rounded">travel</button>
+            <button id="maps" onclick="openInNew('google-maps')" class="material-symbols-rounded">map</button>
+            <button id="news" onclick="openInNew('google-news')" class="material-symbols-rounded">newspaper</button>
+            <button id="currency" onclick="openInNew('google-finance')" class="material-symbols-rounded">currency_exchange</button>
+            <button id="translate" onclick="openInNew('google-translate')" class="material-symbols-rounded">translate</button>
+            <button id="stocks" onclick="openInNew('google-finance')" class="material-symbols-rounded">finance</button>
+            <button onclick="openInNew('google')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
+        </div>
+
+        <div id="left-divider" style="
+        background-color: rgb(100, 100, 100);
+
+        display: none;
+
+        width: 1px;
+        height: 3.5rem;
+        "></div>
+    
+        <div id="search-container" class="search-box">
+            <span class="material-symbols-rounded">search</span>
+            <input onchange="search()" id="search" tabindex="99" type="text" class="input-search" placeholder="Search for anything" autocomplete="off">
+        </div>
+
+        <div id="right-divider" style="
+        background-color: rgb(100, 100, 100);
+
+        display: none;
+
+        width: 1px;
+        height: 3.5rem;
+        "></div>
+
+        <div id="right-buttons" style="display: none;" class="row">
+            <button onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>
+            <button onclick="openInNew('google-images')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
+        </div>
     </div>
 
     <script src="nova.js"></script>
     <script src="https://nadir-software.github.io/nadircss/mobile.js"></script>
-
-    <h1 style="transform: translateY(50vh);">Scroll up for search</h1>
 </body>
 </html>
