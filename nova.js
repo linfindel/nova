@@ -255,7 +255,11 @@ function search() {
             }
 
             titleSection.innerText = title;
-            descriptionSection.innerText = description;
+            
+            if (description) {
+                descriptionSection.innerText = description;
+            }
+
             articleSection.innerHTML = article;
 
             if (imageURL) {
