@@ -273,28 +273,6 @@ function search() {
                 openImageButton.style.display = "none";
             }
 
-            isHuman(wikidataQID).then(result => {
-                if (result) {
-                    console.log(`${wikidataQID} is an instance of human.`);
-
-                    let imageIsPortrait = data.originalimage.width < data.originalimage.height;
-
-                    if (imageIsPortrait) {
-                        imageSection.style.backgroundSize = "contain";
-                        imageSection.className = "";
-                    }
-                }
-                
-                else {
-                    console.log(`${wikidataQID} is not an instance of human.`);
-                    
-                    if (!spaceStyleSet) {
-                        imageSection.style.backgroundSize = "cover";
-                        imageSection.className = "card-subtle";
-                    }
-                }
-            });
-
             // Check for place
             var descriptionNoHyphens = description.replace("-", " ");
 
@@ -407,15 +385,46 @@ function search() {
             if (keywordFound) {
                 imageSection.style.backgroundSize = "contain";
                 imageSection.className = "";
-
-                var spaceStyleSet = true;
             }
 
             else {
                 imageSection.style.backgroundSize = "cover";
                 imageSection.className = "card-subtle";
-                
-                var spaceStyleSet = false;
+            
+            }
+
+            var imageWidth = data.originalimage.width;
+            var imageHeight = data.originalimage.height;
+
+            // Get the viewport height
+            const viewportHeight = window.innerHeight;
+            console.log(`Viewport height: ${viewportHeight}`);
+
+            // Set the desired image height to 50vh
+            var requiredImageHeight = 0.5 * viewportHeight;
+            console.log(`Required image height: ${requiredImageHeight}`);
+
+            // Calculate the corresponding image width while retaining the aspect ratio
+            const aspectRatio = imageWidth / imageHeight;
+            console.log(`Aspect ratio: ${aspectRatio}`);
+
+            var requiredImageWidth = aspectRatio * requiredImageHeight;
+
+            console.log(`Required image width: ${requiredImageWidth}`);
+
+            if (imageWidth < imageHeight) {
+                imageSection.style.backgroundSize = "cover";
+                imageSection.className = "";
+
+                imageSection.style.width = `${requiredImageWidth}px`;
+
+                console.log("Image is portrait");
+            }
+
+            else {
+                imageSection.style.backgroundSize = "cover";
+                imageSection.className = "card-subtle";
+                imageSection.style.width = "35rem";
             }
 
             leftButtons.style.display = "flex";
@@ -518,32 +527,4 @@ function containsYearMoreThanTenYearsAgo(description) {
     }
 
     return false; // All years found are either recent or are preceded by "born"
-}
-
-// Function to check if an entity is human using Wikidata API
-function isHuman(QID) {
-    const apiUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${QID}&props=claims&callback=processResponse`;
-    
-    return new Promise((resolve, reject) => {
-        window.processResponse = function(data) {
-        if (data.entities && data.entities[QID] && data.entities[QID].claims) {
-            const claims = data.entities[QID].claims;
-          
-            if (claims.P31) {
-                for (const claim of claims.P31) {
-                    if (claim.mainsnak.datavalue.value.id === 'Q5') {
-                        resolve(true); // Q5 corresponds to human
-                        return;
-                    }
-                }
-            }
-        }
-        
-        resolve(false);
-        };
-      
-        const script = document.createElement('script');
-        script.src = apiUrl;
-        document.body.appendChild(script);
-    });
 }
