@@ -398,7 +398,6 @@ function search() {
 
             // Get the viewport height
             const viewportHeight = window.innerHeight;
-            console.log(`Viewport height: ${viewportHeight}`);
 
             // Set the desired image height to 50vh
             var requiredImageHeight = 0.5 * viewportHeight;
@@ -406,11 +405,9 @@ function search() {
 
             // Calculate the corresponding image width while retaining the aspect ratio
             const aspectRatio = imageWidth / imageHeight;
-            console.log(`Aspect ratio: ${aspectRatio}`);
 
             var requiredImageWidth = aspectRatio * requiredImageHeight;
 
-            console.log(`Required image width: ${requiredImageWidth}`);
 
             if (imageWidth < imageHeight) {
                 imageSection.style.backgroundSize = "cover";
@@ -425,6 +422,8 @@ function search() {
                 imageSection.style.backgroundSize = "cover";
                 imageSection.className = "card-subtle";
                 imageSection.style.width = "35rem";
+
+                console.log("Image is landscape");
             }
 
             leftButtons.style.display = "flex";
@@ -447,18 +446,18 @@ function copy() {
     navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
         if (result.state === "granted" || result.state === "prompt") {
             navigator.clipboard.writeText(articleSection.innerText);
-            copyArticleButton.classList.add("button-icon-success");
+            copyArticleButton.classList.add("button-success");
     
             setTimeout(() => {
-                copyArticleButton.classList.remove("button-icon-success");
+                copyArticleButton.classList.remove("button-success");
             }, 1000);
         }
 
         else {
-            copyArticleButton.classList.add("button-icon-error");
+            copyArticleButton.classList.add("button-error");
 
             setTimeout(() => {
-                copyArticleButton.classList.remove("button-icon-error");
+                copyArticleButton.classList.remove("button-error");
             }, 1000);
         }
     });
