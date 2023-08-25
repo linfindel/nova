@@ -232,8 +232,6 @@ function search() {
         fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchTerm)}`)
         .then(response => response.json())
         .then(data => {
-            buttonToolbar.style.border = "1px solid rgb(100, 100, 100)";
-
             console.log(data);
 
             title = data.title;
@@ -430,6 +428,8 @@ function search() {
             rightButtons.style.display = "flex";
             leftDivider.style.display = "flex";
             rightDivider.style.display = "flex";
+            
+            buttonToolbar.style.border = "1px solid rgb(100, 100, 100)";
         })
         .catch(error => {
             searchContainer.className = "search-box-error";
