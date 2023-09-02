@@ -29,7 +29,6 @@ var description;
 var article;
 var pageURL;
 var imageURL;
-var wikidataQID;
 
 // Analysis - Keywords and language codes for various types of content
 const placeKeywords = [
@@ -383,6 +382,8 @@ function search() {
             if (keywordFound) {
                 imageSection.style.backgroundSize = "contain";
                 imageSection.className = "";
+
+                var spaceStyleSet = true;
             }
 
             else {
@@ -407,7 +408,7 @@ function search() {
             var requiredImageWidth = aspectRatio * requiredImageHeight;
 
 
-            if (imageWidth < imageHeight) {
+            if (imageWidth < imageHeight && !spaceStyleSet) {
                 imageSection.style.backgroundSize = "cover";
                 imageSection.className = "";
 
@@ -417,8 +418,11 @@ function search() {
             }
 
             else {
-                imageSection.style.backgroundSize = "cover";
-                imageSection.className = "card-subtle";
+                if (!spaceStyleSet) {
+                    imageSection.style.backgroundSize = "cover";
+                    imageSection.className = "card-subtle";
+                }
+
                 imageSection.style.width = "35rem";
 
                 console.log("Image is landscape");
