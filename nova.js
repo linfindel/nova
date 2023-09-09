@@ -407,7 +407,6 @@ function search() {
 
             var requiredImageWidth = aspectRatio * requiredImageHeight;
 
-
             if (imageWidth < imageHeight && !spaceStyleSet) {
                 imageSection.style.backgroundSize = "cover";
                 imageSection.className = "";
