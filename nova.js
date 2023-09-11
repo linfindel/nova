@@ -239,7 +239,7 @@ function search() {
             pageURL = data.content_urls.desktop.page;
             wikidataQID = data.wikibase_item;
 
-            const maxAnswerLength = 850; // Maximum length of the answer text
+            const maxAnswerLength = 800; // Maximum length of the answer text
             article = data.extract.slice(0, maxAnswerLength);
 
             if (article.length < data.extract.length) {
@@ -422,7 +422,7 @@ function search() {
                     imageSection.className = "card-subtle";
                 }
 
-                imageSection.style.width = "35rem";
+                imageSection.style.width = "50vw";
 
                 console.log("Image is landscape");
             }
