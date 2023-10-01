@@ -23,6 +23,8 @@ const searchContainer = document.getElementById("search-container");
 
 const buttonToolbar = document.getElementById("toolbar");
 
+const caseSnackbarElement = document.getElementById("case-snackbar");
+
 // Information - Storing data related to the search results
 var title;
 var description;
@@ -440,6 +442,10 @@ function search() {
             setTimeout(() => {
                 searchContainer.className = "search-box";
             }, 1000);
+
+            if (searchTerm === searchTerm.toLowerCase()) {
+                caseSnackbar();
+            }
         });
     };
 }
@@ -529,4 +535,20 @@ function containsYearMoreThanTenYearsAgo(description) {
     }
 
     return false; // All years found are either recent or are preceded by "born"
+}
+
+function caseSnackbar() {
+    if (caseSnackbarElement.style.opacity == "0") {
+        caseSnackbarElement.style.opacity = "1";
+        caseSnackbarElement.style.pointerEvents = "all";
+
+        setTimeout(() => {
+            caseSnackbar();
+        }, 3000);
+    }
+
+    else {
+        caseSnackbarElement.style.opacity = "0";
+        caseSnackbarElement.style.pointerEvents = "none";
+    }
 }
