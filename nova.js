@@ -422,7 +422,7 @@ function search() {
                     imageSection.className = "card-subtle";
                 }
 
-                imageSection.style.width = "50vw";
+                imageSection.style.width = "40vw";
 
                 console.log("Image is landscape");
             }
