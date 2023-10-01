@@ -541,10 +541,6 @@ function caseSnackbar() {
     if (caseSnackbarElement.style.opacity == "0") {
         caseSnackbarElement.style.opacity = "1";
         caseSnackbarElement.style.pointerEvents = "all";
-
-        setTimeout(() => {
-            caseSnackbar();
-        }, 3000);
     }
 
     else {
