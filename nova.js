@@ -223,7 +223,7 @@ const spaceKeywords = [
 ];
 
 // Function to perform the search
-function search() {
+function search(device) {
     imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 
     var searchTerm = searchBox.value;
@@ -239,9 +239,17 @@ function search() {
             description = data.description;
             article = data.extract;
             pageURL = data.content_urls.desktop.page;
-            wikidataQID = data.wikibase_item;
 
-            const maxAnswerLength = 800; // Maximum length of the answer text
+            var maxAnswerLength;
+
+            if (device != "mobile") {
+                maxAnswerLength = 800; // Maximum length of the answer text
+            }
+
+            else {
+                maxAnswerLength = 100;
+            }
+
             article = data.extract.slice(0, maxAnswerLength);
 
             if (article.length < data.extract.length) {
@@ -435,8 +443,11 @@ function search() {
             rightDivider.style.display = "flex";
             
             buttonToolbar.style.border = "1px solid rgb(100, 100, 100)";
+            buttonToolbar.style.display = "flex";
         })
         .catch(error => {
+            console.error(error);
+
             searchContainer.className = "search-box-error";
 
             setTimeout(() => {
