@@ -2,7 +2,7 @@ if (window.innerWidth < window.innerHeight) {
     // User is on a mobile device
     console.log('User is on a mobile device.');
 
-    window.open("https://nadir-software.github.io/nova/mobile", "_blank");
+    window.open("https://nadir-software.github.io/nova/mobile", "_self");
 }
 
 else {
