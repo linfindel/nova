@@ -408,20 +408,24 @@ function search(device) {
             // Get the viewport height
             const viewportHeight = window.innerHeight;
 
-            // Set the desired image height to 50vh
-            var requiredImageHeight = 0.5 * viewportHeight;
-            console.log(`Required image height: ${requiredImageHeight}`);
+            if (device != "mobile") {
+                // Set the desired image height to 50vh
+                var requiredImageHeight = 0.5 * viewportHeight;
+                console.log(`Required image height: ${requiredImageHeight}`);
 
-            // Calculate the corresponding image width while retaining the aspect ratio
-            const aspectRatio = imageWidth / imageHeight;
+                // Calculate the corresponding image width while retaining the aspect ratio
+                const aspectRatio = imageWidth / imageHeight;
 
-            var requiredImageWidth = aspectRatio * requiredImageHeight;
+                var requiredImageWidth = aspectRatio * requiredImageHeight;
+            }
 
             if (imageWidth < imageHeight && !spaceStyleSet) {
                 imageSection.style.backgroundSize = "cover";
                 imageSection.className = "";
 
-                imageSection.style.width = `${requiredImageWidth}px`;
+                if (device != "mobile") {
+                    imageSection.style.width = `${requiredImageWidth}px`;
+                }
 
                 console.log("Image is portrait");
             }
