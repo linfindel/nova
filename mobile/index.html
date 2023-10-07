@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
+    <div id="navbar" class="navbar">
         <h1>Nova</h1>
     </div>
 
@@ -46,7 +46,7 @@
             Copy text
         </button>
 
-        <button onclick="openInNew('article')">
+        <button id="wikipedia" onclick="openInNew('article')">
             <span class="material-symbols-rounded">open_in_new</span>
             More information
         </button>
@@ -112,6 +112,7 @@
     <div id="left-divider"></div>
     <div id="right-divider"></div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"></script>
     <script src="../nova.js"></script>
 </body>
 </html>

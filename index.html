@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
+    <div id="navbar" class="navbar">
         <h1>Nova</h1>
     </div>
 
@@ -52,7 +52,7 @@
     ">
         <div id="left-buttons" style="display: none;" class="row">
             <button onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
-            <button onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
+            <button id="wikipedia" onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
             <button id="travel" onclick="openInNew('google-travel')" class="material-symbols-rounded">travel</button>
             <button id="maps" onclick="openInNew('google-maps')" class="material-symbols-rounded">map</button>
             <button id="news" onclick="openInNew('google-news')" class="material-symbols-rounded">newspaper</button>
@@ -84,6 +84,7 @@
         </button>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"></script>
     <script src="nova.js"></script>
     <script src="mobile.js"></script>
 </body>

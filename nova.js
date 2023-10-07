@@ -1,4 +1,5 @@
 // Document - Selecting HTML elements by their IDs
+const navbar = document.getElementById("navbar");
 const titleSection = document.getElementById("title");
 const descriptionSection = document.getElementById("description");
 const articleSection = document.getElementById("article");
@@ -259,6 +260,98 @@ function search(device) {
 
             if (data.originalimage && data.originalimage.source) {
                 imageURL = data.originalimage.source;
+
+                generateMaterialDesignPalette(imageURL, (error, palette) => {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        console.log("Material Design Palette:", palette);           
+            
+                        // Set the background color of buttons with alpha 0.25
+                        navbar.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        copyArticleButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        openImageButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        document.getElementById("wikipedia").style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        travelButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        mapsButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        newsButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        currencyButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        translateButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        stocksButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+            
+                        // Change background color on hover to alpha 0.5
+                        searchContainer.addEventListener("mouseover", () => {
+                            searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        searchContainer.addEventListener("mouseout", () => {
+                            searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+            
+                        copyArticleButton.addEventListener("mouseover", () => {
+                            copyArticleButton.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        copyArticleButton.addEventListener("mouseout", () => {
+                            copyArticleButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+
+                        openImageButton.addEventListener("mouseover", () => {
+                            openImageButton.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        openImageButton.addEventListener("mouseout", () => {
+                            openImageButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+
+                        document.getElementById("wikipedia").addEventListener("mouseover", () => {
+                            document.getElementById("wikipedia").style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        document.getElementById("wikipedia").addEventListener("mouseout", () => {
+                            document.getElementById("wikipedia").style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+
+                        travelButton.addEventListener("mouseover", () => {
+                            travelButton.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        travelButton.addEventListener("mouseout", () => {
+                            travelButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+
+                        mapsButton.addEventListener("mouseover", () => {
+                            mapsButton.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        mapsButton.addEventListener("mouseout", () => {
+                            mapsButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+
+                        newsButton.addEventListener("mouseover", () => {
+                            newsButton.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        newsButton.addEventListener("mouseout", () => {
+                            newsButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+
+                        currencyButton.addEventListener("mouseover", () => {
+                            currencyButton.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        currencyButton.addEventListener("mouseout", () => {
+                            currencyButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+
+                        translateButton.addEventListener("mouseover", () => {
+                            translateButton.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        translateButton.addEventListener("mouseout", () => {
+                            translateButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+
+                        stocksButton.addEventListener("mouseover", () => {
+                            stocksButton.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        stocksButton.addEventListener("mouseout", () => {
+                            stocksButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                        });
+                    }
+                });
             }
 
             titleSection.innerText = title;
@@ -562,4 +655,55 @@ function caseSnackbar() {
         caseSnackbarElement.style.opacity = "0";
         caseSnackbarElement.style.pointerEvents = "none";
     }
+}
+
+// Function to generate a Material Design color palette from an image URL
+function generateMaterialDesignPalette(imageURL, callback) {
+    // Create an image element to load the image
+    const img = new Image();
+    img.crossOrigin = "Anonymous"; // Enable cross-origin access to the image
+  
+    // Set up an event listener for when the image is loaded
+    img.onload = function () {
+        // Create a Vibrant.js object to extract colors from the image
+        const vibrant = new Vibrant(img);
+        const swatches = vibrant.swatches();
+  
+        // Check if swatches were successfully generated
+        if (swatches) {
+            // Extract Material Design color palette
+            const palette = {
+                accent: swatches.Vibrant.getHex(),
+                primaryDark: swatches.DarkVibrant.getHex(),
+                primaryLight: swatches.LightVibrant.getHex(),
+                primary: swatches.Muted.getHex(),
+            };
+  
+            // Execute the callback function with the generated palette
+            callback(null, palette);
+        }
+        
+        else {
+            // Error handling if swatches couldn't be generated
+            callback("Failed to generate swatches", null);
+        }
+    };
+  
+    // Set the image source to the provided URL
+    img.src = imageURL;
+}
+
+// Function to generate an RGBA value with a specified alpha
+function generateRGBA(hex, alpha) {
+    // Remove the "#" symbol if present
+    hex = hex.replace(/^#/, '');
+
+    // Parse the hex color to RGB components
+    const bigint = parseInt(hex, 16);
+    const red = (bigint >> 16) & 255;
+    const green = (bigint >> 8) & 255;
+    const blue = bigint & 255;
+
+    // Create the RGBA string
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
