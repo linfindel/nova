@@ -350,6 +350,8 @@ function search(device) {
                         stocksButton.addEventListener("mouseout", () => {
                             stocksButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
                         });
+
+                        document.getElementById("text-card").style.backgroundColor = generateRGBA(palette.accent, 0.25);
                     }
                 });
             }
