@@ -241,6 +241,8 @@ function search(device) {
             article = data.extract;
             pageURL = data.content_urls.desktop.page;
 
+            document.title = `${title} | Nova`;
+
             var maxAnswerLength;
 
             if (device != "mobile") {
