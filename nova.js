@@ -285,6 +285,14 @@ function search(device) {
                             searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.5);
                         });
                         searchContainer.addEventListener("mouseout", () => {
+                            if (document.activeElement != searchBox) {
+                                searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.25);
+                            }
+                        });
+                        searchContainer.addEventListener("focusin", () => {
+                            searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.5);
+                        });
+                        searchContainer.addEventListener("focusout", () => {
                             searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.25);
                         });
             
