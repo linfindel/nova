@@ -1,91 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova</title>
 
-    <link rel="stylesheet" href="https://linfindel.github.io/nadircss/nadir.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" href="https://linfindel.github.io/nadircss/nadir.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
 
-    <link rel="preload" href="Product Sans Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="Product Sans Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-    <style>
-        @font-face {
-            font-family: "Google logo";
-            src: url("Product\ Sans\ Bold.ttf");
-        }
-    </style>
+  <style>
+    @font-face {
+      font-family: "Google logo";
+      src: url("Product\ Sans\ Bold.ttf");
+    }
+  </style>
 </head>
 <body>
-    <div id="navbar" class="navbar">
-        <h1>Nova</h1>
-    </div>
+  <div id="navbar" class="navbar">
+    <h1>Nova</h1>
+  </div>
 
-    <div id="content" style="margin-top: -1rem;">
-        <div class="row">
-            <div style="flex: 1;">
-                <div id="text-card" style="align-items: center; display: flex; flex-direction: column; justify-content: center; height: 50vh; width: 40vw" class="card">
-                    <div class="column">
-                        <div class="text-center">
-                            <h1 id="title"></h1>
-                            <p id="description" style="text-transform: uppercase; font-size: 0.75rem;"></p>
-                        </div>
-                        <p id="article"></p>
-                    </div>
-                </div>
+  <div id="content" style="margin-top: -1rem;">
+    <div class="row">
+      <div style="flex: 1;">
+        <div id="text-card" style="align-items: center; display: flex; flex-direction: column; justify-content: center; height: 50vh; width: 40vw" class="card">
+          <div class="column">
+            <div class="text-center">
+              <h1 id="title"></h1>
+              <p id="description" style="text-transform: uppercase; font-size: 0.75rem;"></p>
             </div>
-
-            <div class="row">
-                <div id="image" class="card-subtle" style="background-size: contain; background-position: center; background-repeat: no-repeat; height: 50vh; width: 40vw; border-radius: 24px; padding: 2.5rem;"></div>
-            </div>
+            <p id="article"></p>
+          </div>
         </div>
+      </div>
+
+      <div class="row">
+        <div id="image" class="card-subtle" style="background-size: contain; background-position: center; background-repeat: no-repeat; height: 50vh; width: 40vw; border-radius: 24px; padding: 2.5rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toolbar" class="toolbar" style="
+  border: none;
+
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 1.4rem;
+  ">
+    <div id="left-buttons" style="display: none;" class="row">
+      <button onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
+      <button id="wikipedia" onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
+      <button id="travel" onclick="openInNew('google-travel')" class="material-symbols-rounded">travel</button>
+      <button id="maps" onclick="openInNew('google-maps')" class="material-symbols-rounded">map</button>
+      <button id="news" onclick="openInNew('google-news')" class="material-symbols-rounded">newspaper</button>
+      <button id="currency" onclick="openInNew('google-finance')" class="material-symbols-rounded">currency_exchange</button>
+      <button id="translate" onclick="openInNew('google-translate')" class="material-symbols-rounded">translate</button>
+      <button id="stocks" onclick="openInNew('google-finance')" class="material-symbols-rounded">finance</button>
+      <button onclick="openInNew('google')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
     </div>
 
-    <div id="toolbar" class="toolbar" style="
-    border: none;
-
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 1.4rem;
-    ">
-        <div id="left-buttons" style="display: none;" class="row">
-            <button onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
-            <button id="wikipedia" onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
-            <button id="travel" onclick="openInNew('google-travel')" class="material-symbols-rounded">travel</button>
-            <button id="maps" onclick="openInNew('google-maps')" class="material-symbols-rounded">map</button>
-            <button id="news" onclick="openInNew('google-news')" class="material-symbols-rounded">newspaper</button>
-            <button id="currency" onclick="openInNew('google-finance')" class="material-symbols-rounded">currency_exchange</button>
-            <button id="translate" onclick="openInNew('google-translate')" class="material-symbols-rounded">translate</button>
-            <button id="stocks" onclick="openInNew('google-finance')" class="material-symbols-rounded">finance</button>
-            <button onclick="openInNew('google')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
-        </div>
-
-        <div id="left-divider" class="toolbar-divider" style="display: none;"></div>
-        
-        <div id="search-container" class="search-box">
-            <span class="material-symbols-rounded">search</span>
-            <input onchange="search()" id="search" tabindex="99" type="text" class="input-search" placeholder="Search for anything" autocomplete="off" autofocus>
-        </div>
-
-        <div id="right-divider" class="toolbar-divider" style="display: none;"></div>
-
-        <div id="right-buttons" style="display: none;" class="row">
-            <button onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>
-            <button onclick="openInNew('google-images')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
-        </div>
+    <div id="left-divider" class="toolbar-divider" style="display: none;"></div>
+    
+    <div id="search-container" class="search-box">
+      <span class="material-symbols-rounded">search</span>
+      <input onchange="search()" id="search" tabindex="99" type="text" class="input-search" placeholder="Search for anything" autocomplete="off" autofocus>
     </div>
 
-    <div style="opacity: 0; pointer-events: none; position: absolute; bottom: 0; left: 0; margin: 1rem;" id="case-snackbar" class="snackbar">
-        <p>Search is case-sensitive</p>
-        <button onclick="caseSnackbar()" class="button-subtle">
-            <span class="material-symbols-rounded">close</span>
-        </button>
-    </div>
+    <div id="right-divider" class="toolbar-divider" style="display: none;"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"></script>
-    <script src="nova.js"></script>
-    <script src="mobile.js"></script>
+    <div id="right-buttons" style="display: none;" class="row">
+      <button onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>
+      <button onclick="openInNew('google-images')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
+    </div>
+  </div>
+
+  <div style="opacity: 0; pointer-events: none; position: absolute; bottom: 0; left: 0; margin: 1rem;" id="case-snackbar" class="snackbar">
+    <p>Search is case-sensitive</p>
+    <button onclick="caseSnackbar()" class="button-subtle">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"></script>
+  <script src="nova.js"></script>
+  <script src="mobile.js"></script>
 </body>
 </html>
