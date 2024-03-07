@@ -1,4 +1,3 @@
-// Document - Selecting HTML elements by their IDs
 const navbar = document.getElementById("navbar");
 const titleSection = document.getElementById("title");
 const descriptionSection = document.getElementById("description");
@@ -26,14 +25,12 @@ const buttonToolbar = document.getElementById("toolbar");
 
 const caseSnackbarElement = document.getElementById("case-snackbar");
 
-// Information - Storing data related to the search results
 var title;
 var description;
 var article;
 var pageURL;
 var imageURL;
 
-// Analysis - Keywords and language codes for various types of content
 const placeKeywords = [
   "village",
   "city",
@@ -223,7 +220,6 @@ const spaceKeywords = [
   "black hole"
 ];
 
-// Function to perform the search
 function search(device) {
   imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 
@@ -246,7 +242,7 @@ function search(device) {
       var maxAnswerLength;
 
       if (device != "mobile") {
-        maxAnswerLength = 800; // Maximum length of the answer text
+        maxAnswerLength = 800;
       }
 
       else {
@@ -271,7 +267,6 @@ function search(device) {
           else {
             console.log("Material Design Palette:", palette);           
         
-            // Set the background color of buttons with alpha 0.25
             navbar.style.backgroundColor = generateRGBA(palette.accent, 0.25);
             searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.25);
             copyArticleButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
@@ -284,7 +279,6 @@ function search(device) {
             translateButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
             stocksButton.style.backgroundColor = generateRGBA(palette.accent, 0.25);
   
-            // Change background color on hover to alpha 0.5
             searchContainer.addEventListener("mouseover", () => {
               searchContainer.style.backgroundColor = generateRGBA(palette.accent, 0.5);
             });
@@ -387,7 +381,6 @@ function search(device) {
           openImageButton.style.display = "none";
         }
 
-        // Check for place
         var descriptionNoHyphens = description.replace("-", " ");
 
         var wordsInDescription = descriptionNoHyphens.toLowerCase().split(/\s+/);
@@ -410,7 +403,6 @@ function search(device) {
           travelButton.style.display = "none";
         }
 
-        // Check for news
         keywordFound = false;
 
         for (const word of wordsInDescription) {
@@ -432,7 +424,6 @@ function search(device) {
           newsButton.style.display = "none";
         }
 
-        // Check for currency
         keywordFound = false;
 
         for (const word of wordsInDescription) {
@@ -450,7 +441,6 @@ function search(device) {
           currencyButton.style.display = "none";
         }
 
-        // Check for language
         keywordFound = false;
 
         for (const word of wordsInDescription) {
@@ -468,7 +458,6 @@ function search(device) {
           translateButton.style.display = "none";
         }
 
-        // Check for company
         keywordFound = false;
 
         for (const word of wordsInDescription) {
@@ -486,7 +475,6 @@ function search(device) {
           stocksButton.style.display = "none";
         }
 
-        // Check for space
         keywordFound = false;
 
         for (const word of wordsInDescription) {
@@ -512,15 +500,12 @@ function search(device) {
         var imageWidth = data.originalimage.width;
         var imageHeight = data.originalimage.height;
 
-        // Get the viewport height
         const viewportHeight = window.innerHeight;
 
         if (device != "mobile") {
-          // Set the desired image height to 50vh
           var requiredImageHeight = 0.5 * viewportHeight;
           console.log(`Required image height: ${requiredImageHeight}`);
 
-          // Calculate the corresponding image width while retaining the aspect ratio
           const aspectRatio = imageWidth / imageHeight;
 
           var requiredImageWidth = aspectRatio * requiredImageHeight;
@@ -572,7 +557,6 @@ function search(device) {
   };
 }
 
-// Function to copy article content to clipboard
 function copy() {
   navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
     if (result.state === "granted" || result.state === "prompt") {
@@ -594,7 +578,6 @@ function copy() {
   });
 }
 
-// Function to open links in new tabs
 function openInNew(content) {
   if (content == "article") {
     open(pageURL, "_blank");
@@ -633,30 +616,28 @@ function openInNew(content) {
   }
 }
 
-// Function to check if a description contains a year more than ten years ago
 function containsYearMoreThanTenYearsAgo(description) {
   const currentYear = new Date().getFullYear();
   const yearRegex = /\b\d{4}\b/g;
   const years = description.match(yearRegex);
 
   if (!years) {
-    return false; // No years found in the description
+    return false;
   }
 
   for (let i = 0; i < years.length; i++) {
     const yearStr = years[i];
     const year = parseInt(yearStr, 10);
     if (!isNaN(year) && (currentYear - year) >= 10) {
-      // Check if the word "born" precedes the year
       const index = description.indexOf(yearStr);
 
       if (index >= 5 && /\bborn\b/i.test(description.slice(index - 5, index))) {
-        return false; // The year is more than 10 years ago and is preceded by "born"
+        return false;
       }
     }
   }
 
-  return false; // All years found are either recent or are preceded by "born"
+  return false;
 }
 
 function caseSnackbar() {
@@ -671,21 +652,15 @@ function caseSnackbar() {
   }
 }
 
-// Function to generate a Material Design color palette from an image URL
 function generateMaterialDesignPalette(imageURL, callback) {
-  // Create an image element to load the image
   const img = new Image();
-  img.crossOrigin = "Anonymous"; // Enable cross-origin access to the image
+  img.crossOrigin = "Anonymous";
   
-  // Set up an event listener for when the image is loaded
   img.onload = function () {
-    // Create a Vibrant.js object to extract colors from the image
     const vibrant = new Vibrant(img);
     const swatches = vibrant.swatches();
   
-    // Check if swatches were successfully generated
     if (swatches) {
-      // Extract Material Design color palette
       const palette = {
         accent: swatches.Vibrant.getHex(),
         primaryDark: swatches.DarkVibrant.getHex(),
@@ -693,31 +668,24 @@ function generateMaterialDesignPalette(imageURL, callback) {
         primary: swatches.Muted.getHex(),
       };
   
-      // Execute the callback function with the generated palette
       callback(null, palette);
     }
         
     else {
-      // Error handling if swatches couldn't be generated
       callback("Failed to generate swatches", null);
     }
   };
   
-  // Set the image source to the provided URL
   img.src = imageURL;
 }
 
-// Function to generate an RGBA value with a specified alpha
 function generateRGBA(hex, alpha) {
-  // Remove the "#" symbol if present
   hex = hex.replace(/^#/, '');
 
-  // Parse the hex color to RGB components
   const bigint = parseInt(hex, 16);
   const red = (bigint >> 16) & 255;
   const green = (bigint >> 8) & 255;
   const blue = bigint & 255;
 
-  // Create the RGBA string
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
