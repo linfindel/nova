@@ -255,9 +255,20 @@ function search(device) {
         article = article.trim();
         article += "... ";
       }
+    
+      var link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+    
+      link.href = "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsrounded/search/default/24px.svg";
 
       if (data.originalimage && data.originalimage.source) {
         imageURL = data.originalimage.source;
+
+        link.href = imageURL;
 
         generateMaterialDesignPalette(imageURL, (error, palette) => {
           if (error) {
