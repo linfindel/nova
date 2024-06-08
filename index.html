@@ -52,36 +52,36 @@
   margin-bottom: 1.4rem;
   ">
     <div id="left-buttons" style="display: none;" class="row">
-      <button onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
-      <button id="wikipedia" onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
-      <button id="travel" onclick="openInNew('google-travel')" class="material-symbols-rounded">travel</button>
-      <button id="maps" onclick="openInNew('google-maps')" class="material-symbols-rounded">map</button>
-      <button id="news" onclick="openInNew('google-news')" class="material-symbols-rounded">newspaper</button>
-      <button id="currency" onclick="openInNew('google-finance')" class="material-symbols-rounded">currency_exchange</button>
-      <button id="translate" onclick="openInNew('google-translate')" class="material-symbols-rounded">translate</button>
-      <button id="stocks" onclick="openInNew('google-finance')" class="material-symbols-rounded">finance</button>
-      <button onclick="openInNew('google')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
+      <button translate="no" onclick="copy()" id="copy-article" class="material-symbols-rounded">content_copy</button>
+      <button translate="no" id="wikipedia" onclick="openInNew('article')" class="material-symbols-rounded">open_in_new</button>
+      <button translate="no" id="travel" onclick="openInNew('google-travel')" class="material-symbols-rounded">travel</button>
+      <button translate="no" id="maps" onclick="openInNew('google-maps')" class="material-symbols-rounded">map</button>
+      <button translate="no" id="news" onclick="openInNew('google-news')" class="material-symbols-rounded">newspaper</button>
+      <button translate="no" id="currency" onclick="openInNew('google-finance')" class="material-symbols-rounded">currency_exchange</button>
+      <button translate="no" id="translate" onclick="openInNew('google-translate')" class="material-symbols-rounded">translate</button>
+      <button translate="no" id="stocks" onclick="openInNew('google-finance')" class="material-symbols-rounded">finance</button>
+      <button translate="no" onclick="openInNew('google')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
     </div>
 
     <div id="left-divider" class="toolbar-divider" style="display: none;"></div>
     
     <div id="search-container" class="search-box">
-      <span class="material-symbols-rounded">search</span>
+      <span translate="no" class="material-symbols-rounded">search</span>
       <input onchange="search()" id="search" tabindex="99" type="text" class="input-search" placeholder="Search for anything" autocomplete="off" autofocus>
     </div>
 
     <div id="right-divider" class="toolbar-divider" style="display: none;"></div>
 
     <div id="right-buttons" style="display: none;" class="row">
-      <button onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>
-      <button onclick="openInNew('google-images')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
+      <button translate="no" onclick="openInNew('image')" id="open-image" class="material-symbols-rounded">open_in_new</button>
+      <button translate="no" onclick="openInNew('google-images')" class="button-subtle" style="font-family: 'Google logo'; font-size: 1.75rem; height: 3.5rem; width: 3.5rem;">G</button>
     </div>
   </div>
 
   <div style="opacity: 0; pointer-events: none; position: absolute; bottom: 0; left: 0; margin: 1rem;" id="case-snackbar" class="snackbar">
     <p>Search is case-sensitive</p>
     <button onclick="caseSnackbar()" class="button-subtle">
-      <span class="material-symbols-rounded">close</span>
+      <span translate="no" class="material-symbols-rounded">close</span>
     </button>
   </div>
 

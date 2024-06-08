@@ -37,65 +37,65 @@
   </div>
 
   <div id="search-container" class="search-box">
-    <span class="material-symbols-rounded">search</span>
+    <span translate="no" class="material-symbols-rounded">search</span>
     <input onchange="search('mobile')" id="search" tabindex="99" type="text" class="input-search" placeholder="Search for anything" autocomplete="off" autofocus>
   </div>
 
   <div class="toolbar" id="toolbar" style="display: none; flex-direction: column;">
     <button onclick="copy()" id="copy-article">
-      <span class="material-symbols-rounded">content_copy</span>
+      <span translate="no" class="material-symbols-rounded">content_copy</span>
       Copy text
     </button>
 
     <button id="wikipedia" onclick="openInNew('article')">
-      <span class="material-symbols-rounded">open_in_new</span>
+      <span translate="no" class="material-symbols-rounded">open_in_new</span>
       More information
     </button>
 
     <button id="travel" onclick="openInNew('google-travel')">
-      <span class="material-symbols-rounded">travel</span>
+      <span translate="no" class="material-symbols-rounded">travel</span>
       View flights
     </button>
 
     <button id="maps" onclick="openInNew('google-maps')">
-      <span class="material-symbols-rounded">map</span>
+      <span translate="no" class="material-symbols-rounded">map</span>
       View map
     </button>
 
     <button id="news" onclick="openInNew('google-news')">
-      <span class="material-symbols-rounded">newspaper</span>
+      <span translate="no" class="material-symbols-rounded">newspaper</span>
       View news
     </button>
 
     <button id="currency" onclick="openInNew('google-finance')">
-      <span class="material-symbols-rounded">currency_exchange</span>
+      <span translate="no" class="material-symbols-rounded">currency_exchange</span>
       View exchange rates
     </button>
 
     <button id="translate" onclick="openInNew('google-translate')">
-      <span class="material-symbols-rounded">translate</span>
+      <span translate="no" class="material-symbols-rounded">translate</span>
       Translate this language
     </button>
 
     <button id="stocks" onclick="openInNew('google-finance')">
-      <span class="material-symbols-rounded">finance</span>
+      <span translate="no" class="material-symbols-rounded">finance</span>
       View company stocks
     </button>
 
     <button onclick="openInNew('google')" class="button-subtle">
-      <span style="font-family: 'Google logo'; font-size: 1.75rem;">G</span>
+      <span translate="no" style="font-family: 'Google logo'; font-size: 1.75rem;">G</span>
       Open in Google Search
     </button>
 
     <div class="toolbar-divider-horizontal"></div>
 
     <button onclick="openInNew('image')" id="open-image">
-      <span class="material-symbols-rounded">open_in_new</span>
+      <span translate="no" class="material-symbols-rounded">open_in_new</span>
       Open image
     </button>
 
     <button onclick="openInNew('google-images')" class="button-subtle">
-      <span style="font-family: 'Google logo'; font-size: 1.75rem;">G</span>
+      <span translate="no" style="font-family: 'Google logo'; font-size: 1.75rem;">G</span>
       Open in Google Images
     </button>
   </div>
@@ -103,7 +103,7 @@
   <div style="opacity: 0; pointer-events: none; position: absolute; bottom: 0; margin: auto; margin-bottom: 1rem;" id="case-snackbar" class="snackbar">
     <p>Search is case-sensitive</p>
     <button onclick="caseSnackbar()" class="button-subtle">
-      <span class="material-symbols-rounded">close</span>
+      <span translate="no" class="material-symbols-rounded">close</span>
     </button>
   </div>
 
